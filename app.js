@@ -1,8 +1,19 @@
 const express = require('express');
-const app = express();
-
+const mongoose = require('mongoose');
 require('dotenv').config(); // loads  .env files in process.env
 
+// App
+const app = express();
+
+// Database
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log('database conneted'));
+
+// Route
 app.get('/', (req, res) => {
   res.send('Hello from node');
 });

@@ -1,5 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parse');
+const cookieParser = require('cookie-parser'); // to save user's credential in cookies
+
 require('dotenv').config(); // loads  .env files in process.env
 
 //import routes
@@ -17,6 +21,11 @@ mongoose
   })
   .then(() => console.log('database conneted'));
 
+
+// Middlewares
+app.use(morgan('dev'))  // http request logger
+app.use(bodyParser.json()) // to get request body data in json 
+app.use(cookieParser())
 // Route middleware
 app.use('/api', userRoutes);
 
